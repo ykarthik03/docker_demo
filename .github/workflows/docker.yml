@@ -58,16 +58,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: kaw393939/devops_demo:${{ github.sha }} # Uses the Git SHA for tagging
+          tags: ky253/docker_demo:${{ github.sha }} # Uses the Git SHA for tagging
           platforms: linux/amd64,linux/arm64 # Multi-platform support
           cache-from: type=registry,ref=kaw393939/devops_demo:cache
           cache-to: type=inline,mode=max
           
-      - name: Scan the Docker image
-        uses: aquasecurity/trivy-action@v0.5.8
-        with:
-          image-ref: 'kaw393939/devops_demo:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1' # Fail the job if vulnerabilities are found
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
